@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pure Petals — Fresh Flowers & Bouquets</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%233ba55d' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(58,165,93,0.9)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+@media (max-width: 767px) {
+  #home { margin-top: 56px; }
+}
+
+#products .card:hover {
+  box-shadow: 0 14px 28px rgba(58,165,93,0.12);
+}
+
+    :root{
+      --bg: #fffaf6;           /* soft cream */
+      --accent: #3ba55d;       /* fresh leaf green */
+      --accent-2: #ff6b81;     /* blossom pink */
+      --muted: #6b6b6b;
+      --card-bg: #ffffff;
+      --goldish: #f0c987;
+    }
+
+    html,body {
+      height: 100%;
+      background: var(--bg);
+      color: #222;
+      scroll-behavior: smooth;
+    }
+
+    /* Navbar */
+    .navbar {
+      transition: all 0.4s ease;
+      border-bottom: 2px solid transparent;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(4px);
+    }
+    .navbar.scrolled {
+      background-color: #ffffff !important;
+      border-bottom: 2px solid var(--accent);
+      box-shadow: 0 6px 20px rgba(58,165,93,0.08);
+    }
+    .navbar-brand {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--accent-2) !important;
+      letter-spacing: 0.4px;
+    }
+    .nav-link {
+      font-size: 16px;
+      color: #3a3a3a !important;
+    }
+    .nav-link.active {
+      color: var(--accent) !important;
+      font-weight: 700;
+    }
+
+    /* Home / Carousel */
+    #home {
+      height: 80vh;
+      scroll-margin-top: 70px;
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+    }
+    .carousel-inner, .carousel-item {
+      height: 100%;
+    }
+    .carousel-item img {
+      width: 100%;
+      height: 80vh;
+      object-fit: cover;
+      filter: saturate(1.05);
+    }
+
+    /* Banner text overlay */
+    .banner-overlay{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      text-align: center;
+      color: white;
+      text-shadow: 0 6px 20px rgba(0,0,0,0.45);
+      padding: 12px 18px;
+      border-radius: 12px;
+      max-width: 90%;
+    }
+    .banner-overlay h1{
+      font-size: 2.4rem;
+      font-weight: 800;
+      margin: 0 0 8px 0;
+      color: white;
+    }
+    .banner-overlay p{
+      margin: 0;
+      font-size: 1.05rem;
+      opacity: 0.95;
+    }
+    .banner-cta{
+      margin-top: 14px;
+    }
+
+    /* Products */
+    #products {
+      background: transparent;
+      color: #222;
+      padding: 40px 0 60px 0;
+    }
+    #products h2 {
+      color: var(--accent);
+    }
+    #products .card {
+      background-color: var(--card-bg);
+      color: #222;
+      border: 1px solid rgba(0,0,0,0.04);
+      transition: all 0.35s ease;
+      border-radius: 12px;
+    }
+    #products .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(58,165,93,0.08);
+      border-color: rgba(58,165,93,0.12);
+    }
+    #products .card-title {
+      color: #2b2b2b;
+      font-weight: 700;
+    }
+    .card-img-top {
+      height: 280px;
+      object-fit: cover;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    @media(min-width: 768px){
+      .card-img-top {
+        height: 320px;
+      }
+    }
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+
+    /* Price & buttons */
+    .price {
+      font-weight: 800;
+      color: var(--accent-2);
+      font-size: 1.05rem;
+    }
+    .btn-shop {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border: none;
+      color: white;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: .5rem 1.2rem;
+      box-shadow: 0 10px 20px rgba(58,165,93,0.12);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .btn-shop:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 30px rgba(58,165,93,0.16);
+    }
+
+    /* About & Contact */
+    #about, #contact {
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,250,246,0.95));
+      padding: 60px 0;
+    }
+    #about img {
+      max-height: 360px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    /* Contact form */
+    .form-control {
+      background: #fff;
+      color: #222;
+      border: 1px solid rgba(58,165,93,0.12);
+      border-radius: 8px;
+    }
+    .form-control:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 10px rgba(58,165,93,0.08);
+    }
+    .form-card{
+      background: white;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+
+    /* Section animations */
+    section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease-out;
+      scroll-margin-top: 90px;
+    }
+    section.visible {
+      animation: fadeUp 0.9s ease forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 50px;
+      background-color: transparent;
+      color: #333;
+      padding: 28px 0;
+    }
+
+    /* Small helpers */
+    .tag {
+      display:inline-block;
+      background: rgba(255,107,129,0.08);
+      color: var(--accent-2);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbarSupportedContent" data-bs-offset="70" tabindex="0">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <!-- Logo / Brand -->
+      <a class="navbar-brand" href="#">
+        <i class="fa-solid fa-leaf me-2"></i> Pure Petals
+      </a>
+
+      <!-- Mobile Toggle -->
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+          <li class="nav-item"><a class="nav-link px-3" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="#products">Shop</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="#contact">Contact</a></li>
+          <li class="nav-item ms-3 d-none d-lg-block"><a href="#products" class="btn btn-sm btn-light border" style="font-weight:700;">Order Now</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Home / Carousel -->
+  <section id="home" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3500">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#home" data-bs-slide-to="0" class="active"></button>
+      <!-- <button type="button" data-bs-target="#home" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#home" data-bs-slide-to="2"></button> -->
+    </div>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active position-relative">
+        <img src="ChatGPT Image Oct 30, 2025, 07_35_42 PM.png" class="d-block w-100" alt="Fresh roses bouquet on wooden table">
+        <div class="banner-overlay" style="max-width:900px;">
+          <h1 style="color: white;">Fresh Flowers Delivered Daily</h1>
+          <p style="color: #fff7ee;">Hand-picked bouquets from local growers — straight to your doorstep.</p>
+          <div class="banner-cta">
+            <a href="#products" class="btn btn-shop">Shop Bestsellers</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#home" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#home" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </section>
+
+  <!-- Products -->
+  <section id="products" class="py-5">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-start text-uppercase fw-bold mb-0">Our Bouquets</h2>
+        <div class="text-end">
+          <span class="tag">Free local delivery over PKR 2,500</span>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <!-- 12 Product cards -->
+        <!-- Row 1 -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <img src="pro10.jfif" class="card-img-top" alt="Rose & Baby's Breath Bouquet">
+            <div class="card-body">
+              <h5 class="card-title">Blushing Roses</h5>
+              <p class="card-text text-muted">Soft pink roses with delicate baby's breath — romantic & timeless.</p>
+              <div class="d-flex justify-content-between align-items-center mt-auto">
+                <div class="price">PKR 2,499</div>
+                <button class="btn btn-shop">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100">
+            <img src="pro11.jfif" class="card-img-top" alt="Sunny sunflower bouquet">
+            <div class="card-body">
+              <h5 class="card-title">Sunshine Mix</h5>
+              <p class="card-text text-muted">Sunflowers and wild blooms — bright, cheerful, and uplifting.</p>
+              <div class="d-flex justify-content-between align-items-center mt-auto">
+                <div class="price">PKR 1,899</div>
+                <button class="btn btn-shop">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100">
+            <img src="jas.jpg" class="card-img-top" alt="Elegant lily bouquet">
+            <div class="card-body">
+              <h5 class="card-title">Lily Elegance</h5>
+              <p class="card-text text-muted">Pure white lilies for a refined and graceful statement.</p>
+              <div class="d-flex justify-content-between align-items-center mt-auto">
+                <div class="price">PKR 2,799</div>
+                <button class="btn btn-shop">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <img src="pro1.jfif" class="card-img-top" alt="Romantic red roses bouquet">
+            <div class="card-body">
+              <h5 class="card-title">Velvet Reds</h5>
+              <p class="card-text text-muted">Deep red roses — perfect for anniversaries & special moments.</p>
+              <div class="d-flex justify-content-between align-items-center mt-auto">
+                <div class="price">PKR 3,499</div>
+                <button class="btn btn-shop">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100">
+            <img src="pro2.jfif" class="card-img-top" alt="Mixed pastel bouquet">
+            <div class="card-body">
+              <h5 class="card-title">Pastel Garden</h5>
+              <p class="card-text text-muted">A dreamy mix of pastel roses, peonies, and greenery.</p>
+              <div class="d-flex justify-content-between align-items-center mt-auto">
+                <div class="price">PKR 2,999</div>
+                <button class="btn btn-shop">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100">
+            <img src="pro3.jfif" class="card-img-top" alt="Elegant daisies and greens">
+            <div class="card-body">
+              <h5 class="card-title">Meadow Daisies</h5>
+              <p class="card-text text-muted">Fresh daisies and wild herbs — natural & carefree.</p>
+              <div class="d-flex justify-content-between align-items-center mt-auto">
+                <div class="price">PKR 1,599</div>
+                <button class="btn btn-shop">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <img src="pro4.jfif" class="card-img-top" alt="Orchid luxury bouquet">
+            <div class="card-body">
+              <h5 class="card-title">Orchid Luxe</h5>
+              <p class="card-text text-muted">Exotic orchids arranged for a refined, luxurious look.</p>
+              <div class="d-flex justify-content-between align-items-center mt-auto">
+                <div class="price">PKR 4,999</div>
+                <button class="btn btn-shop">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100">
+            <img src="pro5.jfif" class="card-img-top" alt="Tulip mix bouquet">
+            <div class="card-body">
+              <h5 class="card-title">Tulip Delight</h5>
+              <p class="card-text text-muted">A seasonal selection of vibrant tulips — playful & bright.</p>
+              <div class="d-flex justify-content-between align-items-center mt-auto">
+                <div class="price">PKR 1,999</div>
+                <button class="btn btn-shop">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100">
+            <img src="pro6.jfif" class="card-img-top" alt="Romantic peony bouquet">
+            <div class="card-body">
+              <h5 class="card-title">Peony Romance</h5>
+              <p class="card-text text-muted">Lush peonies for soft, luxurious arrangements.</p>
+              <div class="d-flex justify-content-between align-items-center mt-auto">
+                <div class="price">PKR 3,199</div>
+                <button class="btn btn-shop">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 4 -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <img src="pro7.jfif" class="card-img-top" alt="Mixed seasonal bouquet in basket">
+            <div class="card-body">
+              <h5 class="card-title">Country Basket</h5>
+              <p class="card-text text-muted">Hand-tied seasonal flowers in a charming basket.</p>
+              <div class="d-flex justify-content-between align-items-center mt-auto">
+                <div class="price">PKR 2,199</div>
+                <button class="btn btn-shop">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100">
+            <img src="pro8.jfif" class="card-img-top" alt="Mini arrangement for gift">
+            <div class="card-body">
+              <h5 class="card-title">Gift Mini</h5>
+              <p class="card-text text-muted">Small, elegant posy — ideal as a thoughtful gift.</p>
+              <div class="d-flex justify-content-between align-items-center mt-auto">
+                <div class="price">PKR 899</div>
+                <button class="btn btn-shop">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100">
+            <img src="pro9.jfif" class="card-img-top" alt="Premium anniversary bouquet">
+            <div class="card-body">
+              <h5 class="card-title">Anniversary Premium</h5>
+              <p class="card-text text-muted">Curated premium bouquet — perfect for milestone moments.</p>
+              <div class="d-flex justify-content-between align-items-center mt-auto">
+                <div class="price">PKR 5,499</div>
+                <button class="btn btn-shop">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- /row -->
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="text-dark">
+    <div class="container">
+      <h2 class="text-center mb-3 fw-bold">About Pure Petals</h2>
+      <p class="text-center mb-4 text-muted">We hand-select beautiful blooms from local growers and craft each bouquet with care — from small moments to grand celebrations.</p>
+
+      <div class="row align-items-center">
+        <div class="col-md-6 mb-4 mb-md-0 text-center">
+          <img src="ChatGPT Image Oct 30, 2025, 08_03_18 PM.png" alt="Florist arranging bouquet" class="img-fluid">
+        </div>
+        <div class="col-md-6">
+          <p class="lead" style="line-height:1.8;">
+            Pure Petals was founded to bring fresh, vibrant flowers to moments that matter. Our florists design with personality — combining seasonal freshness, striking color palettes, and sustainable practices.
+          </p>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Fresh daily — sourced from trusted growers</li>
+            <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Same-day delivery (in select areas)</li>
+            <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Satisfaction-guaranteed arrangements</li>
+          </ul>
+          <a href="#products" class="btn btn-shop mt-3">Browse Collections</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-3 fw-bold">Contact Us</h2>
+      <p class="text-center mb-4 text-muted">Questions, custom orders, or same-day delivery requests? We’re here to help.</p>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-6 mb-4">
+          <form class="p-4 form-card">
+            <div class="mb-3">
+              <label class="form-label">Your Name</label>
+              <input type="text" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email Address</label>
+              <input type="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Message</label>
+              <textarea class="form-control" rows="4" required></textarea>
+            </div>
+            <button class="btn btn-shop w-100">Send Message</button>
+          </form>
+        </div>
+        <div class="col-lg-4">
+          <div class="p-4 rounded" style="background:white; border-radius:12px; border:1px solid rgba(0,0,0,0.04);">
+            <h5 class="text-uppercase fw-bold mb-3" style="color:var(--accent);">Get in Touch</h5>
+            <p><i class="fas fa-map-marker-alt me-2 text-muted"></i> Karachi, Pakistan</p>
+            <p><i class="fas fa-envelope me-2 text-muted"></i> hello@purepetals.pk</p>
+            <p><i class="fas fa-phone me-2 text-muted"></i> +92 300 000 0000</p>
+            <hr>
+            <p class="mb-0 text-muted">Open: Mon–Sat • 09:00 — 18:00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center">
+    <div class="container">
+      <p class="mb-0">&copy; 2025 <span style="font-weight:800;color:var(--accent-2)">Pure Petals</span>. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Navbar scroll effect
+    window.addEventListener("scroll", function () {
+      const navbar = document.querySelector(".navbar");
+      if (window.scrollY > 50) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    });
+
+    // Active nav link on scroll
+    const navLinks = document.querySelectorAll('.nav-link');
+    window.addEventListener('scroll', () => {
+      let fromTop = window.scrollY + 90;
+      navLinks.forEach(link => {
+        if (!link.hash) return;
+        let section = document.querySelector(link.hash);
+        if (!section) return;
+        if (
+          section.offsetTop <= fromTop &&
+          section.offsetTop + section.offsetHeight > fromTop
+        ) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    });
+
+    // Reveal sections on scroll (IntersectionObserver)
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.18 });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>
