@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://sadiqzulqarnain268-lang.github.io/assignment/sitemap.xml
